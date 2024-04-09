@@ -2,15 +2,22 @@
 #include <string.h>
 #include <stdlib.h>
 
+
+
+typedef struct Person Person;
+// Function pointer type for setChildren method
+
 // Define Person structure
-typedef struct Person {
+struct Person {
     char firstname[50];
     char lastname[50];
     int age;
     char sex[10];
     int married;
-    struct Person* children[10]; // Assuming a maximum of 10 children
-} Person;
+    Person* children[100]; // Assuming a maximum of 10 children
+    void (*setChildren)(Person* self, Person** children_list, size_t num_children);
+//    void (*setChildren)(Person** children_list, size_t num_children);
+};
 
 // Define a structure for the list
 struct List {
@@ -18,14 +25,22 @@ struct List {
     size_t size;
 };
 
-// Equality comparison function for Person objects
-//int personEquals(const Person* lhs, const Person* rhs) {
-//    return strcmp(lhs->firstname, rhs->firstname) == 0 &&
-//           strcmp(lhs->lastname, rhs->lastname) == 0 &&
-//           lhs->age == rhs->age &&
-//           strcmp(lhs->sex, rhs->sex) == 0 &&
-//           lhs->married == rhs->married;
-//}
+// Function to set children for a person
+static void setChildrenWrapper(Person* self, Person** children_list, size_t num_children) {
+    // Ensure num_children does not exceed the capacity of the children array
+    size_t num_to_copy = num_children < 100 ? num_children : 100;
+
+    // Copy children pointers to the person's children array
+    for (size_t i = 0; i < num_to_copy; ++i) {
+        self->children[i] = children_list[i];
+    }
+
+    // Set the remaining elements in the children array to NULL
+    for (size_t i = num_to_copy; i < 100; ++i) {
+        self->children[i] = NULL;
+    }
+}
+
 
 // Comparator function for sorting by age (descending)
 int compareByAge(const void* a, const void* b) {
@@ -34,52 +49,6 @@ int compareByAge(const void* a, const void* b) {
     return person2->age - person1->age;
 }
 
-// Function to remove a specified person from the list and update children lists
-//void removeItemAndUpdateChildren(Person** personList, Person* personToRemove, int* size) {
-//    for (int i = 0; i < *size; ++i) {
-//        if (personList[i] == personToRemove) {
-//            // Remove personToRemove from the personList
-//            free(personList[i]);
-//            for (int j = i; j < *size - 1; ++j) {
-//                personList[j] = personList[j + 1];
-//            }
-//            (*size)--;
-//
-//            // Update children lists of other persons
-//            for (int j = 0; j < *size; ++j) {
-//                Person* person = personList[j];
-//                for (int k = 0; person->children[k] != NULL; ++k) {
-//                    if (person->children[k] == personToRemove) {
-//                        // Shift remaining children to remove personToRemove
-//                        for (int l = k; person->children[l] != NULL; ++l) {
-//                            person->children[l] = person->children[l + 1];
-//                        }
-//                        break;
-//                    }
-//                }
-//            }
-//            break;
-//        }
-//    }
-//}
-
-// Function to remove a specified person from the list without affecting children lists
-//int removePersonInList(Person** personList, Person* personToRemove) {
-//    int size = countElements(personList);
-//    printf("Removing %s...\n\n", personToRemove->firstname);
-//    for (int i = 0; i < size; ++i) {
-//        if (personList[i] == personToRemove) {
-//            // Remove personToRemove from the personList
-////            free(personList[i]);
-//            for (int j = i; j < size - 1; ++j) {
-//                personList[j] = personList[j + 1];
-//            }
-//            personList[size - 1] = NULL; // Set the last element to NULL
-//            return size - 1; // Return the new size of the list
-//        }
-//    }
-//    return size; // Return the original size if personToRemove is not found
-//}
 // Function to remove a person from the list at the specified index
 void removeFromList(struct List *list, size_t index) {
     if (index >= list->size) {
@@ -137,15 +106,8 @@ void printPersonList(const struct List *list) {
     }
 }
 
-//int countElements(Person** personList) {
-//    int count = 0;
-//    while (personList[count] != NULL) {
-//        count++;
-//    }
-//    return count;
-//}
-
-Person* createPerson(const char* firstname, const char* lastname, int age, const char* sex, int married) {
+Person* createPerson(const char* firstname, const char* lastname, int age, const char* sex, int married) 
+{
     Person* newPerson = (Person*)malloc(sizeof(Person));
     if (newPerson == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -184,12 +146,13 @@ unsigned int addToList(struct List *list, Person *person) {
 }
 
 int main() {
-    unsigned int size;
 
     // Create Person objects using the createPerson function
     Person* person1 = createPerson("Alice", "Smith", 30, "woman", 1);
     Person* person2 = createPerson("Bob", "Johnson", 25, "man", 1);
     Person* person3 = createPerson("Charlie", "Brown", 22, "man", 0);
+    // Set the setChildren function pointer of person3 to the setChildren function
+    person3->setChildren = setChildrenWrapper;  
 
     // Create the list
     struct List *personList = createList();
@@ -198,8 +161,12 @@ int main() {
     addToList(personList, person3);
 
     // Set children for Charlie Brown
-    person3->children[0] = person1;
-    person3->children[1] = person2;
+    Person* children_list[] = {person1, person2};
+    size_t num_children = sizeof(children_list) / sizeof(children_list[0]);
+    person3->setChildren( person3, children_list, num_children);
+//    person3->children[0] = person1;
+//    person3->children[1] = person2;
+    
 
     printf("Initial person list...\n\n");
     printPersonList(personList);
@@ -211,7 +178,7 @@ int main() {
 
     // Create and add Han
     Person* person4 = createPerson("Han", "Faideen", 43, "man", 0);
-    size = addToList(personList, person4);
+    addToList(personList, person4);
     printf("Added Han...\n\n");
 
     // Update ages
@@ -225,7 +192,7 @@ int main() {
     printPersonList(personList);
 
     // Free memory for remaining persons
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < personList->size; ++i) {
         free(personList->persons[i]);
     }
     free(personList->persons);
