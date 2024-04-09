@@ -58,7 +58,7 @@ void removeItemAndUpdateChildren(Person** personList, Person* personToRemove, in
 }
 
 // Function to remove a specified person from the list without affecting children lists
-int removeItemOnly(Person** personList, Person* personToRemove) {
+int removePersonInList(Person** personList, Person* personToRemove) {
     int size = countElements(personList);
     printf("Removing %s...\n\n", personToRemove->firstname);
     for (int i = 0; i < size; ++i) {
@@ -123,13 +123,15 @@ Person* createPerson(const char* firstname, const char* lastname, int age, const
     return newPerson;
 }
 #define MAX_PERSONS 10
-void addToList(Person** personList, Person* newPerson) {
+unsigned int addToList(Person** personList, Person* newPerson) {
     int size = countElements(personList);
     if (size >= MAX_PERSONS) {
         fprintf(stderr, "Person list is full\n");
         return;
     }
     personList[size] = newPerson; // Add the new person at the next available index
+    printf("Added new...%s\n\n", newPerson->firstname);
+    return size + 1;
 }
 
 int main() {
@@ -156,17 +158,12 @@ int main() {
 
     // Remove the person named Bob from the list and update children lists
 //    removeItemAndUpdateChildren(personList, person2, &size);
-    size = removeItemOnly(personList, person2);    
+    size = removePersonInList(personList, person2);    
     printPersonList((const Person**)personList);
 
     // Create and add Han
-    Person* person4 = (Person*)malloc(sizeof(Person));
-    strcpy(person4->firstname, "Han");
-    strcpy(person4->lastname, "Isaac");
-    person4->age = 43;
-    strcpy(person4->sex, "male");
-    person4->married = 0;
-    personList[size++] = person4;
+    Person* person4 = createPerson("Han", "Faideen", 43, "male", 0);
+    size = addToList(personList, person4);
     printf("Added Han...\n\n");
 
     // Update ages
