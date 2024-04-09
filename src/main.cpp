@@ -1,12 +1,16 @@
 
-#include<stdio.h>
 
-#include <iostream>
+
+#include<stdio.h>
 #include <string>
 #include <list>
+//#include <vector>
 #include <algorithm> // For std::sort
-//#include<xc.h>
+#include <functional>
+//#include <cstdlib>
+#include <iostream>
 
+//#include<xc.h>
 class Person {
 public:
     // Constructor to initialize attributes
@@ -39,6 +43,17 @@ struct RemoveBob {
 //    personList.remove(personToRemove);
 //}
 
+void printPersonList(const std::list<Person>& personList) {
+    for (const auto& person : personList) {
+        std::cout << "First Name: " << person.firstname << std::endl;
+        std::cout << "Last Name: " << person.lastname << std::endl;
+        std::cout << "Age: " << person.age << std::endl;
+        std::cout << "Sex: " << person.sex << std::endl;
+        std::cout << "Marriage status: " << (person.married ? "Married" : "Single") << std::endl;
+        std::cout << std::endl;
+    }
+}
+
 int main() {
     // Create three Person instances
     Person person1("Alice", "Smith", 30, "female", true);
@@ -51,25 +66,82 @@ int main() {
     personList.push_back(person1);
     personList.push_back(person2);
     personList.push_back(person3);
+    
+    printf("Initial person list...\r\n\r\n");
+    printPersonList(personList);
 
     // Remove the person named Bob from the list
     personList.remove_if(RemoveBob());
+    printf("Removing Bob...\r\n\r\n");
+    printPersonList(personList);
 //    personList.remove(person2);
     personList.push_back(person4);
+    printf("Added Han...\r\n\r\n");
 
     // Sort the list by age (descending)
-    personList.sort(CompareByAge());
+//    personList.sort(CompareByAge());
 
     // Print information for each person in the updated list
-    for (std::list<Person>::const_iterator it = personList.begin(); it != personList.end(); ++it) {
-        const Person& person = *it;
-        std::cout << "First Name: " << person.firstname << std::endl;
-        std::cout << "Last Name: " << person.lastname << std::endl;
-        std::cout << "Age: " << person.age << std::endl;
-        std::cout << "Sex: " << person.sex << std::endl;
-        std::cout << "Marriage status: " << (person.married ? "Married" : "Single") << std::endl;
-        std::cout << std::endl;
-    }
+    printPersonList(personList);
 
     return 0;
 }
+
+/*
+ //output
+ * Initial person list...
+
+First Name: Alice
+Last Name: Smith
+Age: 30
+Sex: female
+Marriage status: Married
+
+First Name: Bob
+Last Name: Johnson
+Age: 25
+Sex: male
+Marriage status: Married
+
+First Name: Charlie
+Last Name: Brown
+Age: 22
+Sex: male
+Marriage status: Single
+
+Removing Bob...
+
+First Name: Alice
+Last Name: Smith
+Age: 30
+Sex: female
+Marriage status: Married
+
+First Name: Charlie
+Last Name: Brown
+Age: 22
+Sex: male
+Marriage status: Single
+
+Added Han...
+
+First Name: Alice
+Last Name: Smith
+Age: 30
+Sex: female
+Marriage status: Married
+
+First Name: Charlie
+Last Name: Brown
+Age: 22
+Sex: male
+Marriage status: Single
+
+First Name: Han
+Last Name: Isaac
+Age: 43
+Sex: male
+Marriage status: Single
+
+
+ */
