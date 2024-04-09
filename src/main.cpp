@@ -6,19 +6,21 @@
 #include <algorithm>
 #include <iostream>
 
+using namespace std;
+
 class Person {
 public:
     // Constructor to initialize attributes
-    Person(const std::string& firstname, const std::string& lastname, int age, const std::string& sex, bool married)
+    Person(const string& firstname, const string& lastname, int age, const string& sex, bool married)
         : firstname(firstname), lastname(lastname), age(age), sex(sex), married(married) {}
 
     // Attributes
-    std::string firstname;
-    std::string lastname;
+    string firstname;
+    string lastname;
     int age;
-    std::string sex;
+    string sex;
     bool married;
-    std::list<Person*> children; // List of children
+    list<Person*> children; // List of children
 };
 
 // Equality comparison operator for Person objects
@@ -44,7 +46,7 @@ struct RemoveBob {
     }
 };
 
-void removePerson(std::list<Person*>& personList, Person* personToRemove) {
+void removePerson(list<Person*>& personList, Person* personToRemove) {
 //    // Remove the person from the children lists of other persons
 //    for (auto& personPtr : personList) {
 //        personPtr->children.remove(personToRemove);
@@ -56,22 +58,22 @@ void removePerson(std::list<Person*>& personList, Person* personToRemove) {
 }
 
 
-void printPersonList(const std::list<Person*>& personList) {
+void printPersonList(const list<Person*>& personList) {
     for (const auto& personPtr : personList) {
         const Person& person = *personPtr;
-        std::cout << "First Name: " << person.firstname << std::endl;
-        std::cout << "Last Name: " << person.lastname << std::endl;
-        std::cout << "Age: " << person.age << std::endl;
-        std::cout << "Sex: " << person.sex << std::endl;
-        std::cout << "Marriage status: " << (person.married ? "Married" : "Single") << std::endl;
+        cout << "First Name: " << person.firstname << endl;
+        cout << "Last Name: " << person.lastname << endl;
+        cout << "Age: " << person.age << endl;
+        cout << "Sex: " << person.sex << endl;
+        cout << "Marriage status: " << (person.married ? "Married" : "Single") << endl;
         // Print children
         if (!personPtr->children.empty()) {
-            std::cout << "Children: " << std::endl;
+            cout << "Children: " << endl;
             for (const auto& child : personPtr->children) {
-                std::cout << "   - " << child->firstname << " " << child->lastname << ", " << child->age << std::endl;
+                cout << "   - " << child->firstname << " " << child->lastname << ", " << child->age << endl;
             }
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
@@ -83,7 +85,7 @@ int main() {
     Person* person4 = new Person("Han", "Isaac", 43, "male", false);
 
     // Create a list of pointers to Persons
-    std::list<Person*> personList;
+    list<Person*> personList;
     personList.push_back(person1);
     personList.push_back(person2);
     personList.push_back(person3);
