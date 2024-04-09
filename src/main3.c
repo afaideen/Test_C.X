@@ -184,7 +184,13 @@ int main() {
 }
 
 /*OUTPUT
- Number of elements: 3
+ Added new...Alice
+
+Added new...Bob
+
+Added new...Charlie
+
+Number of elements: 3
 Initial person list...
 
 First Name: Alice
@@ -225,10 +231,12 @@ Children:
    - Alice Smith, 30
    - Bob Johnson, 25
 
+Added new...Han
+
 Added Han...
 
 First Name: Han
-Last Name: Isaac
+Last Name: Faideen
 Age: 43
 Sex: man
 Marriage status: Single
@@ -247,6 +255,8 @@ Last Name: Smith
 Age: 3
 Sex: woman
 Marriage status: Married
+
+
 
 
  */
