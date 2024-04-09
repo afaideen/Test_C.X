@@ -21,6 +21,7 @@
       <itemPath>src/main.cpp</itemPath>
       <itemPath>src/main.c</itemPath>
       <itemPath>src/main2.c</itemPath>
+      <itemPath>src/main3.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -2346,6 +2347,8 @@
         </C32CPP>
         <C32Global>
         </C32Global>
+      </item>
+      <item path="src/main2.c" ex="true" overriding="false">
       </item>
     </conf>
   </confs>

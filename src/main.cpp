@@ -9,18 +9,18 @@
 using namespace std;
 
 class Person {
-public:
-    // Constructor to initialize attributes
-    Person(const string& firstname, const string& lastname, int age, const string& sex, bool married)
-        : firstname(firstname), lastname(lastname), age(age), sex(sex), married(married) {}
+    public:
+        // Constructor to initialize attributes
+        Person(const string& firstname, const string& lastname, int age, const string& sex, bool married)
+            : firstname(firstname), lastname(lastname), age(age), sex(sex), married(married) {}
 
-    // Attributes
-    string firstname;
-    string lastname;
-    int age;
-    string sex;
-    bool married;
-    list<Person*> children; // List of children
+        // Attributes
+        string firstname;
+        string lastname;
+        int age;
+        string sex;
+        bool married;
+        list<Person*> children; // List of children
 };
 
 // Equality comparison operator for Person objects
