@@ -136,9 +136,9 @@ unsigned int addToList(Person** personList, Person* newPerson) {
 
 int main() {
     // Create Person objects using the createPerson function
-    Person* person1 = createPerson("Alice", "Smith", 30, "female", 1);
-    Person* person2 = createPerson("Bob", "Johnson", 25, "male", 1);
-    Person* person3 = createPerson("Charlie", "Brown", 22, "male", 0);
+    Person* person1 = createPerson("Alice", "Smith", 30, "woman", 1);
+    Person* person2 = createPerson("Bob", "Johnson", 25, "man", 1);
+    Person* person3 = createPerson("Charlie", "Brown", 22, "man", 0);
 
     // Create an array of pointers to Persons
     Person* personList[MAX_PERSONS];
@@ -150,7 +150,6 @@ int main() {
 
     // Set children for Charlie Brown
     person3->children[0] = person1;
-
     person3->children[1] = person2;
 
     printf("Initial person list...\n\n");
@@ -162,7 +161,7 @@ int main() {
     printPersonList((const Person**)personList);
 
     // Create and add Han
-    Person* person4 = createPerson("Han", "Faideen", 43, "male", 0);
+    Person* person4 = createPerson("Han", "Faideen", 43, "man", 0);
     size = addToList(personList, person4);
     printf("Added Han...\n\n");
 
@@ -191,19 +190,19 @@ Initial person list...
 First Name: Alice
 Last Name: Smith
 Age: 30
-Sex: female
+Sex: woman
 Marriage status: Married
 
 First Name: Bob
 Last Name: Johnson
 Age: 25
-Sex: male
+Sex: man
 Marriage status: Married
 
 First Name: Charlie
 Last Name: Brown
 Age: 22
-Sex: male
+Sex: man
 Marriage status: Single
 Children:
    - Alice Smith, 30
@@ -214,13 +213,13 @@ Removing Bob...
 First Name: Alice
 Last Name: Smith
 Age: 30
-Sex: female
+Sex: woman
 Marriage status: Married
 
 First Name: Charlie
 Last Name: Brown
 Age: 22
-Sex: male
+Sex: man
 Marriage status: Single
 Children:
    - Alice Smith, 30
@@ -231,13 +230,13 @@ Added Han...
 First Name: Han
 Last Name: Isaac
 Age: 43
-Sex: male
+Sex: man
 Marriage status: Single
 
 First Name: Charlie
 Last Name: Brown
 Age: 22
-Sex: male
+Sex: man
 Marriage status: Single
 Children:
    - Alice Smith, 3
@@ -246,7 +245,7 @@ Children:
 First Name: Alice
 Last Name: Smith
 Age: 3
-Sex: female
+Sex: woman
 Marriage status: Married
 
 
