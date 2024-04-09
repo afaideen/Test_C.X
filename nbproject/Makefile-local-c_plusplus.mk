@@ -34,4 +34,4 @@ MP_CPPC_DIR="C:\Microchip\xc32\v4.35\bin"
 MP_AS_DIR="C:\Microchip\xc32\v4.35\bin"
 MP_LD_DIR="C:\Microchip\xc32\v4.35\bin"
 MP_AR_DIR="C:\Microchip\xc32\v4.35\bin"
-DFP_DIR=C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC32MZ-EF_DFP/1.4.168
+DFP_DIR=C:/Users/afaid/.mchp_packs/Microchip/PIC32MZ-EF_DFP/1.3.58
