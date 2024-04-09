@@ -1,7 +1,7 @@
 
 
 
-#include<stdio.h>
+#include<cstdio>
 #include <string>
 #include <list>
 //#include <vector>
@@ -12,17 +12,26 @@
 
 //#include<xc.h>
 class Person {
-public:
-    // Constructor to initialize attributes
-    Person(const std::string& firstname, const std::string& lastname, int age, const std::string& sex, bool married)
-        : firstname(firstname), lastname(lastname), age(age), sex(sex), married(married) {}
+    public:
+        // Constructor to initialize attributes
+        Person(const std::string& firstname, const std::string& lastname, int age, const std::string& sex, bool married)
+            : firstname(firstname), lastname(lastname), age(age), sex(sex), married(married) {}
 
-    // Attributes
-    std::string firstname;
-    std::string lastname;
-    int age;
-    std::string sex;
-    bool married;
+        // Attributes
+        std::string firstname;
+        std::string lastname;
+        int age;
+        std::string sex;
+        bool married;
+};
+    
+// Equality comparison operator for Person objects
+bool operator==(const Person& lhs, const Person& rhs) {
+    return lhs.firstname == rhs.firstname &&
+           lhs.lastname == rhs.lastname &&
+           lhs.age == rhs.age &&
+           lhs.sex == rhs.sex &&
+           lhs.married == rhs.married;
 };
 
 // Comparator function for sorting by age (descending)
@@ -39,9 +48,9 @@ struct RemoveBob {
     }
 };
 
-//void removePerson(std::list<Person>& personList, const Person& personToRemove) {
-//    personList.remove(personToRemove);
-//}
+void removePerson(std::list<Person>& personList, const Person& personToRemove) {
+    personList.remove(personToRemove);
+}
 
 void printPersonList(const std::list<Person>& personList) {
     for (const auto& person : personList) {
@@ -71,10 +80,11 @@ int main() {
     printPersonList(personList);
 
     // Remove the person named Bob from the list
-    personList.remove_if(RemoveBob());
+//    personList.remove_if(RemoveBob());
+    personList.remove(person2);
     printf("Removing Bob...\r\n\r\n");
     printPersonList(personList);
-//    personList.remove(person2);
+    
     personList.push_back(person4);
     printf("Added Han...\r\n\r\n");
 
