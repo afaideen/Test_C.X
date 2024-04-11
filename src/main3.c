@@ -1,19 +1,23 @@
 
 #include "helpers.h"
 
-void (*systemFunctions[])(List*, Person*) = 
-{ 
-    addToList, 
-    removeFromListByPerson 
-};
+//void (*systemFunctions[])(List*, Person*) = 
+//{ 
+//    addToList, 
+//    removeFromListByPerson 
+//};
 
 // Assign the function pointers outside of main
-System mysystem; 
+//System sysObj;
+System sysObj = {
+    .addToList = addToList,
+    .removeFromListByPerson = removeFromListByPerson
+}; 
 
-// Function to initialize mysystem
+// Function to initialize sysObj
 void initializeSystem() {
-    mysystem.addToList = systemFunctions[0];
-    mysystem.removeFromListByPerson = systemFunctions[1];
+//    sysObj.addToList = addToList;//systemFunctions[0];
+//    sysObj.removeFromListByPerson = removeFromListByPerson;//systemFunctions[1];
 }
 
 int main() {
@@ -34,9 +38,9 @@ int main() {
     // Create the list
     List *personList = createList();
 
-    mysystem.addToList(personList, person1);
-    mysystem.addToList(personList, person2);
-    mysystem.addToList(personList, person3);
+    sysObj.addToList(personList, person1);
+    sysObj.addToList(personList, person2);
+    sysObj.addToList(personList, person3);
 
     // Set children for Charlie Brown
     Person* children_list[] = {person1, person2};
@@ -49,12 +53,12 @@ int main() {
 
     // Remove the person named Bob from the list and update children lists
 //    removeFromList(personList, 1);
-    mysystem.removeFromListByPerson(personList, person2);
+    sysObj.removeFromListByPerson(personList, person2);
     printPersonList(personList);
 
     // Create and add Han
     Person* person4 = createPerson("Han", "Faideen", 43, "man", 0);
-    mysystem.addToList(personList, person4);
+    sysObj.addToList(personList, person4);
     printf("Added Han...\n\n");
 
     // Update ages
