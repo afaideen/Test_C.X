@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stddef.h> // Include for size_t
+//#include <strings.h> // Include for strcasecmp
+#include <ctype.h> // Include for toupper
 
 typedef struct List List;
 typedef struct System System;
@@ -49,6 +51,11 @@ void printPersonList(const List *list);
 Person* createPerson(const char* firstname, const char* lastname, int age, const char* sex, int married);
 List* createList();
 void addToList(List *list, Person *person);
+Person* findListByPerson(List *list, Person *personToFind);
+Person* findListByName(List *list, unsigned char *name);
+int strcasecmp_(const char *s1, const char *s2);
+void toLower(char *str);
+void convertFullName2Lower(unsigned char *fullname, Person *currentPerson);
 // Function to initialize mysystem
 void initializeSystem();
 

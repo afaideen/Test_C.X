@@ -33,6 +33,23 @@ void removeFromList(List *list, size_t index) {
         exit(EXIT_FAILURE);
     }
     printf("Removing %s from list...\n", list->persons[index]->firstname);
+    
+    // Get the person to be removed
+    Person *personToRemove = list->persons[index];
+    // Update the next and prev pointers of adjacent persons
+    if (personToRemove->prev != NULL) {
+        personToRemove->prev->next = personToRemove->next;
+    }
+    if (personToRemove->next != NULL) {
+        personToRemove->next->prev = personToRemove->prev;
+    }
+    // Update the top and bottom pointers if needed
+    if (personToRemove == list->top) {
+        list->top = personToRemove->next;
+    }
+    if (personToRemove == list->bottom) {
+        list->bottom = personToRemove->prev;
+    }
 
 //    free(list->persons[index]);
     for (size_t i = index; i < list->size - 1; i++) {
@@ -137,5 +154,68 @@ void addToList(List *list, Person *person) {
         list->top = list->persons[0];
     }
     list->bottom = person; // Update the bottom pointer to point to the new person
+}
+
+Person* findListByPerson(List *list, Person *personToFind) 
+{
+    for (size_t i = 0; i < list->size; ++i) {
+        Person *currentPerson = list->persons[i];
+//        if (strcmp(currentPerson->firstname, personToFind->firstname) == 0 &&
+//            strcmp(currentPerson->lastname, personToFind->lastname) == 0) 
+        if(currentPerson == personToFind)
+        {
+            printf("findListByPerson found %s %s\r\n", currentPerson->firstname, currentPerson->lastname);
+            return currentPerson; // Person found
+        }
+    }
+    return NULL; // Person not found
+}
+
+void convertFullName2Lower(unsigned char *fullname, Person *currentPerson)
+{
+    // Concatenate firstname, space, and lastname into fullname
+    snprintf(fullname, 50, "%s %s", currentPerson->firstname, currentPerson->lastname);
+    
+    // Convert fullname to lowercase
+    for (size_t i = 0; i < strlen(fullname); ++i) {
+        fullname[i] = tolower(fullname[i]);
+    }
+}
+
+Person* findListByName(List *list, unsigned char *name) 
+{
+    unsigned char fullname[100];
+    for (size_t i = 0; i < list->size; ++i) {
+        Person *currentPerson = list->persons[i];
+        convertFullName2Lower(fullname, currentPerson);
+        
+        // Compare the name of the current person with the given name (case insensitive)
+        if (strcmp(fullname, name) == 0) {
+            printf("findListByName found %s %s\r\n", currentPerson->firstname, currentPerson->lastname);
+            return currentPerson; // Person found
+        }
+    }
+    return NULL; // Person not found
+}
+
+int strcasecmp_(const char *s1, const char *s2) 
+{
+    while (*s1 && *s2) {
+        int c1 = toupper(*s1);
+        int c2 = toupper(*s2);
+        if (c1 != c2) {
+            return c1 - c2;
+        }
+        s1++;
+        s2++;
+    }
+    // Return the difference in string lengths if one string is shorter than the other
+    return *s1 - *s2;
+}
+
+void toLower(char *str) {
+    for (int i = 0; str[i] != '\0'; ++i) {
+        str[i] = tolower(str[i]);
+    }
 }
 

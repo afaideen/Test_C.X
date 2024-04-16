@@ -1230,7 +1230,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.35</languageToolchainVersion>
+        <languageToolchainVersion>1.42</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -1337,7 +1337,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="16638"/>
+        <property key="heap-size" value="32000"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -1352,7 +1352,7 @@
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
         <property key="serial-origin" value=""/>
-        <property key="stack-size" value="2048"/>
+        <property key="stack-size" value=""/>
         <property key="symbol-stripping" value=""/>
         <property key="trace-symbols" value=""/>
         <property key="warn-section-align" value="false"/>
@@ -1389,7 +1389,7 @@
       <C32Global>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
-        <property key="legacy-libc" value="true"/>
+        <property key="legacy-libc" value="false"/>
         <property key="mdtcm" value=""/>
         <property key="mitcm" value=""/>
         <property key="mstacktcm" value="false"/>
@@ -1398,6 +1398,7 @@
         <property key="save-temps" value="false"/>
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
+        <appendMe value="-std=c99"/>
       </C32Global>
       <Simulator>
         <property key="codecoverage.enabled" value="Disable"/>

@@ -71,6 +71,13 @@ int main() {
     // Print information for each person in the updated list
     printPersonList(personList);
 
+    //Find person by person name in the list
+    Person* p = findListByPerson(personList, person3);
+    printPerson(p);
+    unsigned char person3name[] = "charlie brown";
+    Person* p2 = findListByName(personList, person3name);
+    printPerson(p2);
+    
     // Free memory for remaining persons
     for (int i = 0; i < personList->size; ++i) {
         free(personList->persons[i]);
