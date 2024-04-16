@@ -72,7 +72,7 @@ int main() {
     printPersonList(personList);
 
     //Find person by person name in the list
-    Person* p = findListByPerson(personList, person3);
+    Person* p = findListByPerson(personList, person4);
     printPerson(p);
     unsigned char person3name[] = "charlie brown";
     Person* p2 = findListByName(personList, person3name);
@@ -89,7 +89,8 @@ int main() {
 }
 
 /*OUTPUT
-Initial person list...
+
+ * Initial person list...
 
 First Name: Alice
 Last Name: Smith
@@ -150,6 +151,26 @@ Last Name: Smith
 Age: 3
 Sex: woman
 Marriage status: Married
+
+findListByPerson found Charlie Brown
+First Name: Charlie
+Last Name: Brown
+Age: 22
+Sex: man
+Marriage status: Single
+Children:
+   - Alice Smith, 3
+   - Bob Johnson, 5
+
+findListByName found Charlie Brown
+First Name: Charlie
+Last Name: Brown
+Age: 22
+Sex: man
+Marriage status: Single
+Children:
+   - Alice Smith, 3
+   - Bob Johnson, 5
 
 
 

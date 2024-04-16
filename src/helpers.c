@@ -177,20 +177,20 @@ void convertFullName2Lower(unsigned char *fullname, Person *currentPerson)
     snprintf(fullname, 50, "%s %s", currentPerson->firstname, currentPerson->lastname);
     
     // Convert fullname to lowercase
-    for (size_t i = 0; i < strlen(fullname); ++i) {
-        fullname[i] = tolower(fullname[i]);
-    }
+//    for (size_t i = 0; i < strlen(fullname); ++i) {
+//        fullname[i] = tolower(fullname[i]);
+//    }
 }
 
 Person* findListByName(List *list, unsigned char *name) 
 {
-    unsigned char fullname[100];
+    unsigned char fullname[50];
     for (size_t i = 0; i < list->size; ++i) {
         Person *currentPerson = list->persons[i];
         convertFullName2Lower(fullname, currentPerson);
         
         // Compare the name of the current person with the given name (case insensitive)
-        if (strcmp(fullname, name) == 0) {
+        if (strcasecmp(fullname, name) == 0) {
             printf("findListByName found %s %s\r\n", currentPerson->firstname, currentPerson->lastname);
             return currentPerson; // Person found
         }
