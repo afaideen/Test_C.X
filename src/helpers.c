@@ -119,6 +119,12 @@ void addToList(List *list, Person *person) {
     }
     list->persons[list->size] = person;
     list->size++;
-//    return list->size;
+    // Update the next and prev pointers for the newly added person and the last person in the list
+    if (list->size > 1) {
+        // Update next and prev pointers for the last person in the list
+        list->persons[list->size - 2]->next = person;
+        person->prev = list->persons[list->size - 2];
+    }
+    person->next = NULL; // The new person is always added at the end, so its next pointer should be NULL
 }
 

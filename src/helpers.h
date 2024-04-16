@@ -20,6 +20,8 @@ struct Person {
     int married;
     Person* children[100];
     SetChildrenFunc setChildren;
+    Person* next;
+    Person* prev;
 };
 
 struct List {
