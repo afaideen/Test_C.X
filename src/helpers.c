@@ -126,5 +126,16 @@ void addToList(List *list, Person *person) {
         person->prev = list->persons[list->size - 2];
     }
     person->next = NULL; // The new person is always added at the end, so its next pointer should be NULL
+    
+    // Update top and bottom pointers
+    if (list->size == 1) {
+        // If the list was empty before, both top and bottom point to the new person
+        list->top = person;
+    }
+    else
+    {
+        list->top = list->persons[0];
+    }
+    list->bottom = person; // Update the bottom pointer to point to the new person
 }
 

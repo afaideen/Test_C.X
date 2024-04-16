@@ -27,6 +27,8 @@ struct Person {
 struct List {
     Person **persons;
     size_t size;
+    Person* top;      // Pointer to the top (first) person in the list
+    Person* bottom;   // Pointer to the bottom (last) person in the list
 };
 
 
